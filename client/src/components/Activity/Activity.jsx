@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getCountries } from "../../redux/actions/actions"
+import { getCountries, postActivity, getActivities } from "../../redux/actions/actions"
 
 
 const Activity = () => {
@@ -20,7 +20,7 @@ const Activity = () => {
         name: '',
         duration: '',
         difficulty: 1,
-        season: 'Summer',
+        season: 'Spring',
         countries: []
     })
 
@@ -40,19 +40,22 @@ const Activity = () => {
 
     const handleSubmitActivity = (e) => {
         e.preventDefault()
-        console.log(input)
+        dispatch(postActivity(input))
+        dispatch(getActivities())
     }
 
     return (
         <div className="activity">
             <button onClick={() => window.history.go(-1)}>Back</button>
+
             <h2>Create an activity</h2>
+
             <form onSubmit={(e) => handleSubmitActivity(e)}>
                 <label name={'name'}>Name: </label>
-                <input type={'text'} name={'name'} value={input.name} onChange={(e) => handleChange(e)} />
+                <input type={'text'} name={'name'} value={input.name} autoComplete={'off'} onChange={(e) => handleChange(e)} />
 
                 <label name={'duration'}>Duration: </label>
-                <input type={'number'} name={'duration'} min={1} onChange={(e) => handleChange(e)} value={input.duration} />
+                <input type={'number'} name={'duration'} min={1} autoComplete={'off'} onChange={(e) => handleChange(e)} value={input.duration} />
 
                 <label name={'difficulty'}>Difficulty: </label>
                 <select name={'difficulty'} onChange={(e) => handleChange(e)}  value={input.difficulty}>
@@ -72,12 +75,14 @@ const Activity = () => {
                 </select>
 
                 <label name={'country'}>Country: </label>
-                <select name={'country'} onChange={(e) => handleChangeOptions(e)}  value={input.country}>
+                <select name={'country'} onChange={(e) => handleChangeOptions(e)} value={input.country} defaultValue={'Select...'} >
+                    <option disabled={true}>Select...</option>
                     {allCountries.map(e => <option key={e.name}>{e.name}</option>)}
                 </select>
 
                 <button type={'submit'} disabled={input.name.length ? false : true}>Submit</button>
             </form>
+
             <div className="info-activities">
                 <p><strong>Name:</strong> {input.name}</p>
                 <p><strong>Duration:</strong> {input.duration}</p>

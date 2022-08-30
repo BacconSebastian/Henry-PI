@@ -71,11 +71,16 @@ router.get('/countries', async (req, res) => {
     }
 })
 
+router.get('/activities', async (req, res) => {
+
+    const allActivities = await getActivities()
+
+    res.send(allActivities)
+})
+
 router.get('/countriesAZ', async (req, res) => {
 
     const allCountries = await getAllInfo()
-
-    // allCountries.sort()
 
     res.send(allCountries)
 })

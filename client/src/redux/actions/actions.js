@@ -11,6 +11,17 @@ export function getCountries() {
     }
 }
 
+export function getActivities() {
+    return async function(dispatch) {
+        var response = await axios.get("http://localhost:3001/activities")
+
+        return dispatch({
+            type: "GET_ACTIVITIES",
+            payload: response.data
+        })
+    }
+}
+
 export function filterByContinent(payload) {
     return {
         type: "FILTER_BY_CONTINENT",
@@ -45,13 +56,9 @@ export function sortByPop(payload) {
     }
 }
 
-export function postActivity() {
-    return async function(dispatch) {
-        var response = await axios.get("http://localhost:3001/activity")
-
-        return dispatch({
-            type: "POST_ACTIVITY",
-            payload: response.data
-        })
+export function postActivity(payload) {
+    return async function() {
+        var response = await axios.post("http://localhost:3001/activity", payload)
+        return response
     }
 }
