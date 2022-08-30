@@ -67,7 +67,7 @@ const Countries = () => {
         <div className="countries">
 
             <form className="search" onSubmit={e => handleSubmitSearch(e)}>
-                <input onChange={handleChangeSearch} name={'search'} type={'text'} autoComplete={'off'} placeholder={'Search a country'} />
+                <input onChange={handleChangeSearch} name={'search'} type={'text'} autoComplete={'nope'} placeholder={'Search a country'} />
                 <button type={'submit'}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
             </form>
 

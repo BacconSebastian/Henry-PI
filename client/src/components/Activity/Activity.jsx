@@ -42,6 +42,8 @@ const Activity = () => {
         e.preventDefault()
         dispatch(postActivity(input))
         dispatch(getActivities())
+        alert('Activity created')
+        window.history.go(-1)
     }
 
     return (
@@ -52,7 +54,7 @@ const Activity = () => {
 
             <form onSubmit={(e) => handleSubmitActivity(e)}>
                 <label name={'name'}>Name: </label>
-                <input type={'text'} name={'name'} value={input.name} autoComplete={'off'} onChange={(e) => handleChange(e)} />
+                <input type={'text'} name={'name'} value={input.name} autoComplete={'nope'} onChange={(e) => handleChange(e)} />
 
                 <label name={'duration'}>Duration: </label>
                 <input type={'number'} name={'duration'} min={1} autoComplete={'off'} onChange={(e) => handleChange(e)} value={input.duration} />
@@ -77,7 +79,7 @@ const Activity = () => {
                 <label name={'country'}>Country: </label>
                 <select name={'country'} onChange={(e) => handleChangeOptions(e)} value={input.country} defaultValue={'Select...'} >
                     <option disabled={true}>Select...</option>
-                    {allCountries.map(e => <option key={e.name}>{e.name}</option>)}
+                    {allCountries.map(e => <option value={e.id} key={e.name}>{e.name}</option>)}
                 </select>
 
                 <button type={'submit'} disabled={input.name.length ? false : true}>Submit</button>

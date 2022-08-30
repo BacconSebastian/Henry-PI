@@ -15,12 +15,14 @@ const CountryDetail = () => {
     const { countryId } = useParams()
     const dispatch = useDispatch()
 
+    const countryDetail = countries.filter(country => country.id == countryId)
+
     useEffect( () => {
         dispatch(getCountries())
-        console.log(activities)
     }, [])
 
-    const countryDetail = countries.filter(country => country.id == countryId)
+    console.log(countryDetail)
+
 
     if (countryDetail.length) {
         return (

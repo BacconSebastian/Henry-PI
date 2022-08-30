@@ -98,7 +98,12 @@ router.get('/countries/:countryId', async (req, res) => {
 })
 
 router.post('/activity', async (req, res) => {
-    const { name, difficulty, duration, season } = req.body 
+    const { name, difficulty, duration, season, countries } = req.body
+
+    for (let i = 0; i < countries.length; i++) {
+        let countryToRelate = await Country.findByPk(countries[i])
+        console.log('PK: ' + countries[i] + ' Result: ' + countryToRelate)
+    }
 
     if (!name || !difficulty) {
         return res.status(400).send('Activity needs name and difficulty')

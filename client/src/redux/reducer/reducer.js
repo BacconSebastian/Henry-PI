@@ -32,7 +32,7 @@ const rootReducer = (state = initialState, action) => {
 
         case "FILTER_BY_NAME":
 
-            const filteredCountriesByName = state.allCountries.filter(country => country.name == action.payload) 
+            const filteredCountriesByName = state.allCountries.filter(country => country.name.toLowerCase() == action.payload.toLowerCase()) 
 
             return {
                 ...state,
