@@ -1,0 +1,8 @@
+@import url('../../App.css');
+
+.all-countries {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}

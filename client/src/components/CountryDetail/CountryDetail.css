@@ -1,0 +1,24 @@
+.country-detail {
+    display: flex;
+    align-items: center;
+
+    padding: 2rem;
+
+    width: calc(100vw - 4rem);
+    height: calc(100vh - 4rem);
+}
+
+.country-detail img {
+    width: 60vw;
+}
+
+.loading-detail {
+    padding: 2rem;
+
+    width: calc(100vw - 4rem);
+    height: calc(100vh - 4rem);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

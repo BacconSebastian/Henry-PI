@@ -1,0 +1,27 @@
+@import url('../../App.css');
+
+.country {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: 1rem;
+    padding: 1rem;
+
+    border-radius: 0.5rem;
+
+    box-shadow: 0 0 10px var(--shadow);
+
+    min-height: 20vw;
+    min-width: 15vw;
+}
+
+.country h2 {
+    width: 15vw;
+    cursor: pointer;
+}
+
+.country img {
+    width: 12.5rem;
+    height: 7.5rem;
+}
