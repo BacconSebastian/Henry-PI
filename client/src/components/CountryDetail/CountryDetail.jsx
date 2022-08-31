@@ -11,25 +11,23 @@ import "./CountryDetail.css"
 const CountryDetail = () => {
 
     const countries = useSelector(state => state.countries)
-    const activities = useSelector(state => state.allActivities)
     const { countryId } = useParams()
     const dispatch = useDispatch()
 
     const countryDetail = countries.filter(country => country.id == countryId)
 
     useEffect( () => {
-        dispatch(getCountries())
+        if (countries.length < 2) {
+            dispatch(getCountries())
+        }
     }, [])
-
-    console.log(countryDetail)
-
 
     if (countryDetail.length) {
         return (
             <div className="country-detail">
                 <button onClick={() => window.history.go(-1)}>Back</button>
                 <div className="detail">
-                    <img src={countryDetail[0].img} />
+                    <img src={countryDetail[0].image} />
                     <div className="info-detail">
                         <h2>{countryDetail[0].name} ({countryDetail[0].id})</h2>
                         <p>{countryDetail[0].capital}</p>
@@ -38,8 +36,8 @@ const CountryDetail = () => {
                         <p>Population: {countryDetail[0].population}</p>
                     </div>
                 </div>
-                {activities?.map(activity => {
-                    return <ActivityDetail name = {activity.name} difficulty = {activity.difficulty} duration = {activity.duration} season = {activity.season} key = {activity.id} />
+                {countryDetail[0].activities?.map(activity => {
+                    return <ActivityDetail name = {activity.name} difficulty = {activity.difficulty} duration = {activity.duration} season = {activity.season} key = {activity.name} />
                 })}
             </div>
         )

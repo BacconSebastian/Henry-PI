@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getCountries, postActivity, getActivities } from "../../redux/actions/actions"
+import { getCountries, postActivity } from "../../redux/actions/actions"
 
 
 const Activity = () => {
@@ -41,7 +41,6 @@ const Activity = () => {
     const handleSubmitActivity = (e) => {
         e.preventDefault()
         dispatch(postActivity(input))
-        dispatch(getActivities())
         alert('Activity created')
         window.history.go(-1)
     }

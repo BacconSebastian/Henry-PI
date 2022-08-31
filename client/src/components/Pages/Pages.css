@@ -24,3 +24,7 @@
 
     box-shadow: 0 0 10px var(--shadow);;
 }
+
+.pages a.active {
+    background-color: red;
+}

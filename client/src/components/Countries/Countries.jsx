@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 
 import Country from "../Country/Country"
 import Pages from "../Pages/Pages"
+import Bar from "../Bar/Bar"
 
 import "./Countries.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -14,7 +15,6 @@ import { faRotate, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 const Countries = () => {
 
     const allCountries = useSelector(state => state.countries)
-
     const dispatch = useDispatch()
 
     const [input, setInput] = useState('')
@@ -27,7 +27,7 @@ const Countries = () => {
     const currentCountries = allCountries.slice(indexFirstCountry, indexLastCountry)
 
     useEffect(() => {
-        if (allCountries.length < 10) {
+        if (allCountries.length < 2) {
             dispatch(getCountries())
         }
     }, [])
@@ -41,27 +41,6 @@ const Countries = () => {
         dispatch(filterByName(input))
     }
 
-    const handleContinentFilter = (e) => {
-        dispatch(filterByContinent(e.target.value))
-        setPage(1)
-    }
-
-    const handleRefresh = () => {
-        dispatch(refreshCountries())
-        setPage(1)
-    }
-
-    const handleAlphSort = (e) => {
-        dispatch(sortByAlph(e.target.value))
-        setPage(1)
-        setRender('Sort by ' + e.target.value) // To render page
-    }
-
-    const handlePopSort = (e) => {
-        dispatch(sortByPop(e.target.value))
-        setPage(1)
-        setRender('Sort by ' + e.target.value) // To render page
-    }
 
     return (
         <div className="countries">
@@ -71,42 +50,20 @@ const Countries = () => {
                 <button type={'submit'}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
             </form>
 
-            <button onClick={() => handleRefresh()}><FontAwesomeIcon icon={faRotate} /></button>
+            <Link to='/activities'>Create activity</Link>
 
-            <div className="side-bar">
-                <Link to='/activities'>Create activity</Link>
+            <Bar setRender = {setRender} setPage = {setPage} allCountries = {allCountries} />
 
-                <p>Sort by population</p>
-                <select defaultValue={'selected'} onChange={e => handlePopSort(e)}>
-                    <option value={'selected'} defaultChecked={true} disabled={true}>Select...</option>
-                    <option value={'PopAscending'}>Ascending</option>
-                    <option value={'PopDescending'}>Descending</option>
-                </select>
-
-                <p>Sort by alphabetically</p>
-                <select defaultValue={'selected'} onChange={e => handleAlphSort(e)}>
-                    <option value={'selected'} defaultChecked={true} disabled={true}>Select...</option>
-                    <option value={'Ascending'}>Ascending</option>
-                    <option value={'Descending'}>Descending</option>
-                </select>
-
-                <p>Filter by continent</p>
-                <select defaultValue={'selected'} onChange={e => handleContinentFilter(e)}>
-                    <option value={'selected'} disabled={true}>Select...</option>
-                    <option value={'Americas'}>Americas</option>
-                    <option value={'Asia'}>Asia</option>
-                    <option value={'Africa'}>Africa</option>
-                    <option value={'Oceania'}>Oceania</option>
-                    <option value={'Europe'}>Europe</option>
-                </select>
-            </div>
-
-            <Pages  allCountries = { allCountries } countriesPerPage = { countriesPerPage } setPage = { setPage }/>
+            <Pages  allCountries = { allCountries } countriesPerPage = { countriesPerPage } setPage = { setPage } page = { page } />
             
             <div className="all-countries">
-                {currentCountries?.map(e => {
-                    return <Country name = {e.name} img = {e.img} continent = {e.continent} id = {e.id} key = {e.id} />
-                })}
+                {allCountries.length ?
+                    currentCountries.map(e => {
+                        return <Country name = {e.name} img = {e.image} continent = {e.continent} id = {e.id} key = {e.id} />
+                    })
+                    :
+                    <p>Loading...</p>
+                }
             </div>
         </div>
     )

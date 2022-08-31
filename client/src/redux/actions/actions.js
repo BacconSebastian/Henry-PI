@@ -11,17 +11,6 @@ export function getCountries() {
     }
 }
 
-export function getActivities() {
-    return async function(dispatch) {
-        var response = await axios.get("http://localhost:3001/activities")
-
-        return dispatch({
-            type: "GET_ACTIVITIES",
-            payload: response.data
-        })
-    }
-}
-
 export function filterByContinent(payload) {
     return {
         type: "FILTER_BY_CONTINENT",

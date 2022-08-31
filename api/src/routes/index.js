@@ -27,7 +27,7 @@ const getInfoDb = async () => {
         {
             include: {
                 model: Activity,
-                attributes: ['name'],
+                attributes: ['name', 'duration', 'difficulty', 'season'],
                 through: {
                     attributes: []
                 }
@@ -38,10 +38,46 @@ const getInfoDb = async () => {
 
 const getAllInfo = async () => {
     const apiInfo = await getInfoApi()
-    const dbInfo = await getInfoDb()
-    const allInfo = apiInfo.concat(dbInfo)
+    
+    // id: apiInfo[i].id,
+    // name: apiInfo[i].name,
+    // image: apiInfo[i].img,
+    // continent: apiInfo[i].continent ? apiInfo[i].continent : "This country does not have continent",
+    // capital: apiInfo[i].capital? apiInfo[i].capital[0] : "This country does not have capital",
+    // subregion: apiInfo[i].subregion ? apiInfo[i].subregion : "This country does not have subregion",
+    // area: apiInfo[i].area,
+    // population: apiInfo[i].population
 
-    return allInfo
+    // {
+    //     id: 'MWI',
+    //     name: 'Malawi',
+    //     img: 'https://flagcdn.com/mw.svg',
+    //     continent: 'Africa',
+    //     capital: [ 'Lilongwe' ],
+    //     subregion: 'Eastern Africa',
+    //     area: 118484,
+    //     population: 19129955
+    // }
+
+    for (let i = 0; i < apiInfo.length; i++) {
+        let findedCountry = await Country.findByPk(apiInfo[i].id)
+        if (findedCountry == null) {
+            Country.create({
+                id: apiInfo[i].id,
+                name: apiInfo[i].name,
+                image: apiInfo[i].img,
+                continent: apiInfo[i].continent ? apiInfo[i].continent : "This country does not have continent",
+                capital: apiInfo[i].capital? apiInfo[i].capital[0] : "This country does not have capital",
+                subregion: apiInfo[i].subregion ? apiInfo[i].subregion : "This country does not have subregion",
+                area: apiInfo[i].area,
+                population: apiInfo[i].population
+            })
+        }
+    }
+
+    const dbInfo = await getInfoDb()
+
+    return dbInfo
 }
 
 const getActivities = async () => {
@@ -52,16 +88,6 @@ router.get('/countries', async (req, res) => {
     const { name } = req.query
 
     const allCountries = await getAllInfo()
-
-    allCountries.sort((a, b) => {
-        if (a.name > b.name) {
-            return 1
-        } else if (b.name > a.name) {
-            return -1
-        } else {
-            return 0
-        }
-    })
 
     if (name) {
         const country = allCountries.filter(e => e.name.toLowerCase().includes(name.toLowerCase()))
@@ -100,11 +126,6 @@ router.get('/countries/:countryId', async (req, res) => {
 router.post('/activity', async (req, res) => {
     const { name, difficulty, duration, season, countries } = req.body
 
-    for (let i = 0; i < countries.length; i++) {
-        let countryToRelate = await Country.findByPk(countries[i])
-        console.log('PK: ' + countries[i] + ' Result: ' + countryToRelate)
-    }
-
     if (!name || !difficulty) {
         return res.status(400).send('Activity needs name and difficulty')
     }
@@ -120,6 +141,15 @@ router.post('/activity', async (req, res) => {
             duration,
             season
         })
+
+        const activityCreated = await Activity.findAll({
+            where: {name: name}
+        })
+    
+        for (let i = 0; i < countries.length; i++) {
+            let country = await Country.findByPk(countries[i])
+            country.addActivity(activityCreated)
+        }
     
         return res.send('Activity created successfully')
     } else {
