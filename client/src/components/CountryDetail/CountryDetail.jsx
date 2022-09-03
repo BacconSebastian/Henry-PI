@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { getCountries } from "../../redux/actions/actions"
 
 import ActivityDetail from "../ActivityDetail/ActivityDetail"
@@ -36,15 +36,28 @@ const CountryDetail = () => {
                         <p>Population: {countryDetail[0].population}</p>
                     </div>
                 </div>
-                {countryDetail[0].activities?.map(activity => {
-                    return <ActivityDetail name = {activity.name} difficulty = {activity.difficulty} duration = {activity.duration} season = {activity.season} key = {activity.name} />
-                })}
+                <div className="activities">
+                    <h2>ACTIVITIES</h2>
+                    {countryDetail[0].activities.length ? 
+                        countryDetail[0].activities.map(activity => {
+                            return <ActivityDetail name = {activity.name} difficulty = {activity.difficulty} duration = {activity.duration} season = {activity.season} key = {activity.name} />
+                        })
+                        :
+                        <div className="have-no-activities">
+                            <p>This country has no activities yet</p>
+                            <Link to='/activities'>¡Create activity!</Link>
+                        </div>
+                    }
+                </div>
             </div>
         )
     } else {
         return (
-            <div className="loading-detail">
-                Loading...
+            <div class="loading-detail">
+                <svg viewBox="0 0 50 50">
+                    <circle class="ring" cx="25" cy="25" r="20"></circle>
+                    <circle class="ball" cx="25" cy="5" r="3.5"></circle>
+                </svg>
             </div>
         )
     }

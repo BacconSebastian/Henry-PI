@@ -1,0 +1,42 @@
+.bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem 2rem 1rem;
+}
+
+.input-sort {
+    display: flex;
+    align-items: center;
+
+    margin: 0 1rem;
+}
+
+.input-sort select{
+    -webkit-appearance: none;
+
+    color: var(--second-color);
+
+    cursor: pointer;
+
+    padding: 0.5rem 1rem;
+
+    border: 0;
+    outline: 2px solid var(--second-color);
+
+    transition: all ease 0.5s;
+}
+
+.input-sort select:hover {
+    outline: 2px solid var(--third-color);
+}
+
+.input-sort select:focus {
+    outline: 2px solid var(--third-color);
+
+    transform: scale(1.05);
+}
+
+.input-sort option {
+    color: var(--second-color);
+}

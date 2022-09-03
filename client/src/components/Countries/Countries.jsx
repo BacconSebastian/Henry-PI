@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getCountries, filterByContinent, refreshCountries, sortByAlph, sortByPop, filterByName } from "../../redux/actions/actions"
+import { getCountries, refreshCountries, filterByName } from "../../redux/actions/actions"
 import { Link } from "react-router-dom"
 
 import Country from "../Country/Country"
@@ -20,6 +20,9 @@ const Countries = () => {
     const [input, setInput] = useState('')
     const [page, setPage] = useState(1)
     const [render, setRender] = useState('') // To render page
+    const [condition, setCondition] = useState(true)  // To toggle loading
+    
+    const filterByContinent = document.getElementById('continent-filter')
 
     const countriesPerPage = 10
     const indexLastCountry = page * countriesPerPage // Number of pages
@@ -38,36 +41,59 @@ const Countries = () => {
     
     const handleSubmitSearch = (e) => {
         e.preventDefault()
+        setCondition(true)
+        setTimeout(() => {
+            setCondition(false)
+        }, 3500)
         dispatch(filterByName(input))
+        setInput('')
+    }
+
+    const handleRefresh = () => {
+        dispatch(refreshCountries())
+        filterByContinent.value = 'selected'
+        setPage(1)
     }
 
 
     return (
         <div className="countries">
 
-            <form className="search" onSubmit={e => handleSubmitSearch(e)}>
-                <input onChange={handleChangeSearch} name={'search'} type={'text'} autoComplete={'nope'} placeholder={'Search a country'} />
-                <button type={'submit'}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
-            </form>
+            <h1>COUNTRIES APP</h1>
 
-            <Link to='/activities'>Create activity</Link>
+            <Link to='/activities' className="create-activity">¡Create activity!</Link>
 
-            <Bar setRender = {setRender} setPage = {setPage} allCountries = {allCountries} />
+            <div className="head-bar">
+                <form className="search" onSubmit={e => handleSubmitSearch(e)}>
+                    <input onChange={handleChangeSearch} name={'search'} type={'text'} autoComplete={'nope'} placeholder={'Search a country'} value={input} />
+                    <button type={'submit'}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                </form>
+            </div>
 
-            <Pages  allCountries = { allCountries } countriesPerPage = { countriesPerPage } setPage = { setPage } page = { page } />
-            
+            <button id = {'refresh-button'} className = {allCountries.length > 60 ? 'disabled' : 'enabled'} disabled = {allCountries.length > 60 ? true : false} onClick={() => handleRefresh()}><FontAwesomeIcon icon={faRotate} /></button>
+
+            <Bar setRender = {setRender} setPage = {setPage} allCountries = {allCountries} setCondition = {setCondition} />
+
             <div className="all-countries">
                 {allCountries.length ?
                     currentCountries.map(e => {
                         return <Country name = {e.name} img = {e.image} continent = {e.continent} id = {e.id} key = {e.id} />
                     })
                     :
-                    <p>Loading...</p>
+
+                    condition ? 
+                    <svg viewBox="0 0 50 50">
+                        <circle class="ring" cx="25" cy="25" r="20"></circle>
+                        <circle class="ball" cx="25" cy="5" r="3.5"></circle>
+                    </svg>
+                    :
+                    <p className="does-not-found">Countries does not found :(</p>
                 }
             </div>
+            
+            <Pages  allCountries = { allCountries } countriesPerPage = { countriesPerPage } setPage = { setPage } page = { page } />
         </div>
     )
-    
 }
 
 export default Countries

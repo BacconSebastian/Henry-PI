@@ -1,24 +1,171 @@
 .country-detail {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 
-    padding: 2rem;
+    padding: 6rem 8rem 2rem 10rem;
 
-    width: calc(100vw - 4rem);
-    height: calc(100vh - 4rem);
+    max-width: 100vw;
+    min-height: calc(100vh - 16rem);
+}
+
+.country-detail button {
+    position: absolute;
+
+    cursor: pointer;
+
+    top: 2rem;
+    left: 2rem;
+
+    background-color: var(--second-color);
+    color: var(--fourth-color);
+
+    padding: 0.5rem 1rem;
+
+    border: 2px solid var(--second-color);
+
+    transition: all ease 0.5s;
+
+    font-weight: bold;
+}
+
+.country-detail button:hover {
+    border: 2px solid var(--third-color);
+    color: var(--third-color);
 }
 
 .country-detail img {
-    width: 60vw;
+    height: 25vw;
+    
+    margin-right: 4rem;
+    border: 4px solid var(--second-color);
+
+    transition: all ease 0.75s;
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+}
+
+.info-detail h2 {
+    font-size: 3rem;
+    color: var(--first-color);
+
+    cursor: default;
+
+    margin-bottom: 2rem;
+
+    position: relative;
+}
+
+.info-detail h2::before {
+    content: '';
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+
+    background-color: var(--second-color);
+
+    transform-origin: bottom right;
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+  
+.info-detail h2:hover::before {
+    transform-origin: bottom left;
+    transform: scaleX(1);
+}
+
+.info-detail p {
+    margin-bottom: 0.5rem;
+
+    font-size: 2rem;
+}
+
+.activities {
+    margin-top: 2rem;
+}
+
+.activities h2 {
+    font-size: 2rem;
+    cursor: default;
+}
+
+.activity-detail {
+    margin: 2rem;
+    padding: 1rem;
+    text-align: center;
+    
+    max-width: 10rem;
+
+    box-shadow: 0 0 5px var(--shadow);
+
+    transition: all ease 0.75s;
+    cursor: default;
+}
+
+.activity-detail:hover {
+    transform: scale(1.1);
+}
+
+.activity-detail h3 {
+    font-size: 1.5rem;
+}
+
+.have-no-activities p {
+    margin: 1rem 0;
+}
+
+.have-no-activities a {
+    background-color: var(--second-color);
+    color: var(--fourth-color);
+
+    padding: 0.5rem 1rem;
+
+    border: 2px solid var(--second-color);
+
+    transition: all ease 0.5s;
+
+    font-weight: bold;
+}
+
+.have-no-activities a:hover {
+    border: 2px solid var(--third-color);
+    color: var(--third-color);
 }
 
 .loading-detail {
-    padding: 2rem;
-
-    width: calc(100vw - 4rem);
-    height: calc(100vh - 4rem);
-
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.loading-detail svg {
+    width: 3.75em;
+    animation: 1.5s spin ease infinite;
+
+    font-size: 2rem;
+}
+  
+.loading-detail .ring {
+    fill: none;
+    stroke: var(--second-color);
+    stroke-width: 2;
+}
+  
+.loading-detail .ball {
+    fill: var(--third-color);
+    stroke: none;
+}
+  
+@keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
 }

@@ -1,0 +1,119 @@
+@import url('../../App.css');
+
+.activity {
+    padding: 8rem;
+    max-width: 100vw;
+}
+
+.back-button {
+    position: absolute;
+
+    cursor: pointer;
+
+    top: 3rem;
+    left: 2rem;
+
+    background-color: var(--second-color);
+    color: var(--fourth-color);
+
+    padding: 0.5rem 1rem;
+
+    border: 2px solid var(--second-color);
+
+    transition: all ease 0.5s;
+
+    font-weight: bold;
+}
+
+.back-button:hover {
+    border: 2px solid var(--third-color);
+    color: var(--third-color);
+}
+
+.activity h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.activity form {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+}
+
+.activity form select,
+.activity form input,
+.activity form button {
+    margin-bottom: 1rem;
+    width: 20rem;
+    padding: 0.25rem 1rem;
+
+    border: 1px solid var(--second-color);
+    color: var(--first-color);
+}
+
+.activity form input {
+    width: 17.75rem;
+}
+
+.activity form input:focus,
+.activity form select:focus {
+    outline: 2px solid var(--second-color);
+}
+
+.info-activities {
+    padding-left: 2rem;
+    padding-top: 1rem;
+}
+
+.info-activities p {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.info-activities p strong {
+    margin-right: 0.5rem;
+}
+
+.info-activities ul {
+    display: flex;
+}
+
+.info-activities ul li {
+    margin-left: 0.5rem;
+}
+
+.form-flex {
+    display: flex;
+}
+
+.form-flex form button.disabled {
+    background-color: lightgray;
+    color: var(--fourth-color);
+
+    padding: 0.5rem 1rem;
+
+    border: 2px solid var(--second-color);
+
+    transition: all ease 0.5s;
+
+    font-weight: bold;
+}
+
+.form-flex form button.enabled {
+    background-color: var(--second-color);
+    color: var(--fourth-color);
+
+    padding: 0.5rem 1rem;
+
+    border: 2px solid var(--second-color);
+
+    transition: all ease 0.5s;
+
+    font-weight: bold;
+}
+
+.form-flex form button.enabled:hover {
+    border: 2px solid var(--third-color);
+    color: var(--third-color);
+}

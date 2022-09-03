@@ -4,24 +4,39 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     margin: 1rem;
     padding: 1rem;
 
-    border-radius: 0.5rem;
+    box-shadow: 0 0 5px var(--shadow);
 
-    box-shadow: 0 0 10px var(--shadow);
-
-    min-height: 20vw;
+    min-height: 17vw;
     min-width: 15vw;
+
+    transition: all ease 0.75s;
+}
+
+.country:hover,
+.country:hover img {
+    transform: scale(1.1);
 }
 
 .country h2 {
-    width: 15vw;
+    font-size: inherit;
+
+    max-width: 15vw;
     cursor: pointer;
+    text-align: center;
 }
 
 .country img {
-    width: 12.5rem;
-    height: 7.5rem;
+    width: 10rem;
+    height: 6rem;
+
+    margin-top: 2rem;
+
+    filter: drop-shadow(0 0 5px var(--shadow));
+
+    transition: all ease 0.75s;
 }

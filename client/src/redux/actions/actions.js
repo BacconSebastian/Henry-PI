@@ -18,6 +18,13 @@ export function filterByContinent(payload) {
     }
 }
 
+export function filterByActivity(payload) {
+    return {
+        type: "FILTER_BY_ACTIVITY",
+        payload
+    }
+}
+
 export function filterByName(payload) {
     return {
         type: "FILTER_BY_NAME",

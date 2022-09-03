@@ -11,7 +11,7 @@ const getInfoApi = async () => {
         return {
             id: e.cca3,
             name: e.name.common,
-            img: e.flags[0],
+            image: e.flags[0],
             continent: e.region,
             capital: e.capital,
             subregion: e.subregion,
@@ -38,26 +38,6 @@ const getInfoDb = async () => {
 
 const getAllInfo = async () => {
     const apiInfo = await getInfoApi()
-    
-    // id: apiInfo[i].id,
-    // name: apiInfo[i].name,
-    // image: apiInfo[i].img,
-    // continent: apiInfo[i].continent ? apiInfo[i].continent : "This country does not have continent",
-    // capital: apiInfo[i].capital? apiInfo[i].capital[0] : "This country does not have capital",
-    // subregion: apiInfo[i].subregion ? apiInfo[i].subregion : "This country does not have subregion",
-    // area: apiInfo[i].area,
-    // population: apiInfo[i].population
-
-    // {
-    //     id: 'MWI',
-    //     name: 'Malawi',
-    //     img: 'https://flagcdn.com/mw.svg',
-    //     continent: 'Africa',
-    //     capital: [ 'Lilongwe' ],
-    //     subregion: 'Eastern Africa',
-    //     area: 118484,
-    //     population: 19129955
-    // }
 
     for (let i = 0; i < apiInfo.length; i++) {
         let findedCountry = await Country.findByPk(apiInfo[i].id)
@@ -65,7 +45,7 @@ const getAllInfo = async () => {
             Country.create({
                 id: apiInfo[i].id,
                 name: apiInfo[i].name,
-                image: apiInfo[i].img,
+                image: apiInfo[i].image,
                 continent: apiInfo[i].continent ? apiInfo[i].continent : "This country does not have continent",
                 capital: apiInfo[i].capital? apiInfo[i].capital[0] : "This country does not have capital",
                 subregion: apiInfo[i].subregion ? apiInfo[i].subregion : "This country does not have subregion",
@@ -102,13 +82,6 @@ router.get('/activities', async (req, res) => {
     const allActivities = await getActivities()
 
     res.send(allActivities)
-})
-
-router.get('/countriesAZ', async (req, res) => {
-
-    const allCountries = await getAllInfo()
-
-    res.send(allCountries)
 })
 
 router.get('/countries/:countryId', async (req, res) => {

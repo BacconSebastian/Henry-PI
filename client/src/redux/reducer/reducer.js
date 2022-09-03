@@ -22,6 +22,15 @@ const rootReducer = (state = initialState, action) => {
                 countries: filteredCountriesByContinent
             }
 
+        case "FILTER_BY_ACTIVITY":
+
+            const filteredCountriesByActivity = state.allCountries.filter(country => country.activities.length > 0)
+            
+            return {
+                ...state,
+                countries: filteredCountriesByActivity
+            }
+
         case "FILTER_BY_NAME":
 
             const filteredCountriesByName = state.allCountries.filter(country => country.name.toLowerCase() == action.payload.toLowerCase()) 
